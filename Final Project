@@ -1,0 +1,151 @@
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+
+public class TicTacToe extends Application implements EventHandler <ActionEvent> {
+ Tile tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9;
+ boolean whoturn;
+ boolean continuegame;
+ Text whowin;
+ Text stuff;
+ Button reset;
+ Button exit;
+ public static void main(String[] args) {
+  launch(args);
+ }
+
+ public void start(Stage primaryStage) {
+  continuegame = true;
+  whoturn = false;
+
+  stuff = new Text(""); stuff.setLayoutX(310); stuff.setLayoutY(695);
+
+  whowin = new Text(""); whowin.setLayoutX(110); whowin.setLayoutY(637);
+
+  reset = new Button("New Game"); reset.setLayoutX(25); reset.setLayoutY(620);
+  reset.setOnAction(new EventHandler <ActionEvent> () {
+	  
+   public void handle(ActionEvent event) {
+    whowin.setText("New Game Start");
+    continuegame = true;
+    whoturn = false;
+    tile1.text.setText("");	tile2.text.setText("");	tile3.text.setText("");
+    tile4.text.setText("");	tile5.text.setText("");	tile6.text.setText("");
+    tile7.text.setText("");	tile8.text.setText("");	tile9.text.setText("");
+   }
+  });
+
+  exit = new Button("Exit"); exit.setLayoutX(25); exit.setLayoutY(655);
+  exit.setOnAction(new EventHandler <ActionEvent> () {
+	  
+   public void handle(ActionEvent event) {
+    primaryStage.close();
+   }
+  });
+
+  tile1 = new Tile(Color.BLACK); tile1.setLayoutY(0); tile1.setLayoutX(0);
+  tile2 = new Tile(Color.GOLD); tile2.setLayoutY(0); tile2.setLayoutX(200);
+  tile3 = new Tile(Color.BLACK); tile3.setLayoutY(0); tile3.setLayoutX(400);
+  tile4 = new Tile(Color.GOLD); tile4.setLayoutY(200); tile4.setLayoutX(0);
+  tile5 = new Tile(Color.BLACK); tile5.setLayoutY(200); tile5.setLayoutX(200);
+  tile6 = new Tile(Color.GOLD); tile6.setLayoutY(200); tile6.setLayoutX(400);
+  tile7 = new Tile(Color.BLACK); tile7.setLayoutY(400); tile7.setLayoutX(0);
+  tile8 = new Tile(Color.GOLD); tile8.setLayoutY(400); tile8.setLayoutX(200);
+  tile9 = new Tile(Color.BLACK); tile9.setLayoutY(400); tile9.setLayoutX(400);
+
+
+  primaryStage.setTitle("Tic Tac Toe");
+  Pane scene = new Pane();
+  primaryStage.setScene(new Scene(scene, 600, 700));
+  scene.getChildren().addAll(tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9, reset, exit, whowin, stuff);
+  primaryStage.show();
+ }
+
+ private class Tile extends StackPane {
+  private Text text = new Text();
+  public Tile(Color color) {
+   text.setFont(Font.font("Times New Roman", 80));
+   text.setFill(Color.WHITE);
+   Rectangle border = new Rectangle(200, 200);
+   border.setFill(color);
+   border.setStroke(Color.WHITE);
+   getChildren().addAll(border, text);
+   setOnMouseClicked(event -> {
+    if (event.getButton() == MouseButton.PRIMARY) {
+     if (continuegame == true) {
+      if (text.getText().isEmpty()) {
+       if (whoturn == false) {
+        text.setText("1");
+        whoturn = true;
+       } else {
+        text.setText("0");
+        whoturn = false;
+       }
+     
+       if (tile1.text.getText().equals("1") && tile2.text.getText().equals("1") && tile3.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile1.text.getText().equals("0") && tile2.text.getText().equals("0") && tile3.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       } else if (tile4.text.getText().equals("1") && tile5.text.getText().equals("1") && tile6.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile4.text.getText().equals("0") && tile5.text.getText().equals("0") && tile6.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       } else if (tile7.text.getText().equals("1") && tile8.text.getText().equals("1") && tile9.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile7.text.getText().equals("0") && tile8.text.getText().equals("0") && tile9.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       }
+     
+       else if (tile1.text.getText().equals("1") && tile4.text.getText().equals("1") && tile7.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile1.text.getText().equals("0") && tile4.text.getText().equals("0") && tile7.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       } else if (tile2.text.getText().equals("1") && tile5.text.getText().equals("1") && tile8.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile2.text.getText().equals("0") && tile5.text.getText().equals("0") && tile8.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       } else if (tile3.text.getText().equals("1") && tile6.text.getText().equals("1") && tile9.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile3.text.getText().equals("0") && tile6.text.getText().equals("0") && tile9.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       }
+      
+       else if (tile1.text.getText().equals("1") && tile5.text.getText().equals("1") && tile9.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile1.text.getText().equals("0") && tile5.text.getText().equals("0") && tile9.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       } else if (tile3.text.getText().equals("1") && tile5.text.getText().equals("1") && tile7.text.getText().equals("1")) {
+        whowin.setText("1 Wins!");
+       } else if (tile3.text.getText().equals("0") && tile5.text.getText().equals("0") && tile7.text.getText().equals("0")) {
+        whowin.setText("0 Wins!");
+       }
+      
+       if (whowin.getText().equals("1 Wins!") || whowin.getText().equals("0 Wins!"))
+        continuegame = false;
+      
+       else if (!(tile1.text.getText().equals("")) && !(tile2.text.getText().equals("")) && !(tile3.text.getText().equals("")) && !(tile4.text.getText().equals("")) && !(tile5.text.getText().equals("")) && !(tile6.text.getText().equals("")) && !(tile7.text.getText().equals("")) && !(tile8.text.getText().equals("")) && !(tile9.text.getText().equals(""))) {
+        whowin.setText("Tie!");
+        continuegame = false;
+       }
+      }
+     }
+    }
+   });
+  }
+ }
+
+ public void handle(ActionEvent event) {
+  ;
+ }
+}
